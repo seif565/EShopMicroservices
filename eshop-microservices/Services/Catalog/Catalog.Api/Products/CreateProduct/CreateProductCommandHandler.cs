@@ -7,7 +7,6 @@ internal class CreateProductCommandHandler(IDocumentSession session) : ICommandH
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        //create Product entity from command Object
         
         Product product = new Product
         {
