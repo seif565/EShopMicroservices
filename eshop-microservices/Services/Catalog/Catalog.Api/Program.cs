@@ -17,9 +17,11 @@ builder.Services.AddCarter();
 builder.Services.AddMarten(opt => opt.Connection(builder.Configuration.GetConnectionString("Database")!)
 ).UseLightweightSessions();
 
-
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(opt => { });
 
 app.MapCarter();
 app.Run();
