@@ -1,6 +1,7 @@
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -16,8 +17,16 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddCarter();
 
-builder.Services.AddMarten(opt => opt.Connection(builder.Configuration.GetConnectionString("Database")!)
-).UseLightweightSessions();
+builder.Services.AddMarten(opt => 
+{
+    opt.Connection(builder.Configuration.GetConnectionString("Database")!);
+
+}).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
