@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("Database")!;
 System.Reflection.Assembly assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>
 {
@@ -19,6 +18,7 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddCarter();
 
+string connectionString = builder.Configuration.GetConnectionString("Database")!;
 builder.Services.AddMarten(opt => 
 {
     opt.Connection(connectionString);
